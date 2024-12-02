@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabajo Final de Laboratorio // Romano Santiago</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="components.css">
+</head>
+<body>
+    <div class="sidebar-layout">
+        <div class="sidebar">
+            <h2>Menú</h2>
+            <nav>
+                <a id="menuNav" href="menu.html">Página Principal</a>
+                <a id="caracterNav" href="caracter.html">Por Caracter</a>
+                <a id="secuenciaNav" href="secuencia.html" class="active">Por Secuencia</a>
+            </nav>
+        </div>
+
+        <div class="container">
+            <h1>Codificación a partir de una secuencia de bits</h1>
+
+            <form onsubmit="readSecuence(event)" class="section">
+                <label for="secuenciabinaria">Secuencia binaria de bits</label>
+                <input type="text" id="secuenciabinaria" class="input-box" required placeholder="Secuencia de 0s y 1s" pattern="^[0-1]+">
+                <button type="submit" id="submitButton" class="button">Codificar</button>
+            </form>
+
+            <div class="section">
+                <label for="secuencia-codificada">
+                    Secuencia codificada en NRZ-L
+                    <div class="info-icon">i</div>
+                </label>
+                <div class="grafics">
+                    <canvas id="nrzSecuence"></canvas> 
+                </div>
+                <label for="secuencia-codificada">
+                    Secuencia codificada en AMI
+                    <div class="info-icon">i</div>
+                </label>
+                <div class="grafics">
+                    <canvas id="amiSecuence"></canvas>
+                </div> 
+                <div class="outbox" id="syncError"></div>
+                <div class="option"style="display: none;" id="showHDB3">
+                    <label for="secuencia-codificada">
+                        Secuencia codificada en HDB3
+                        <div class="info-icon">i</div>
+                    </label>
+                    <div class="grafics">
+                        <canvas id="hdb3Secuence"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="scripts.js"></script> 
+</body>
+</html>
