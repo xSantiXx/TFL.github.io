@@ -29,25 +29,62 @@ const readCharacters = (event) => {
     const hammingCode = hammingEncode(asciiCode);
 
     document.getElementById("hammingCode").textContent = hammingCode;
-    document.getElementById("asciiCode").textContent = asciiCode;
+    document.getElementById("asciiCode").textContent = "ASCII:   "+asciiCode;
 
     const syncError = detectError(hammingCode);
     document.getElementById("syncError").textContent = syncError;
 
     let secuenceWith0 = hammingCode + "0";
 
+    document.getElementById("nrzLabelsContainer").textContent=hammingCode;
     generateNRZL(secuenceWith0);
+    document.getElementById("amiLabelsContainer").textContent=hammingCode;
     generateAMI(secuenceWith0);
 
     const showHDB3 = document.getElementById("showHDB3");
     if (syncError.includes("Posible error")) {
         showHDB3.style.display="block";
+        const hdb3Secuence = hdb3Code(hammingCode);
+        document.getElementById("hdb3LabelsContainer").textContent = hdb3Secuence;
         generateHDB3(secuenceWith0);
     }else{
         showHDB3.style.display="none";
     }
 }   
 
+function hdb3Code(bits) { 
+    let zeroCount = 0;  
+    let result = [];
+    let oneCount = 0;
+    
+    for (let i = 0; i < bits.length; i++) {
+        if (bits[i] === '1') {
+            result.push(1);
+            zeroCount = 0; 
+            oneCount++;
+        }else {
+            zeroCount++;
+            if (zeroCount == 4) {
+                if (oneCount%2 === 1) {
+                    result.push('V'); 
+                    oneCount++;
+                } else {
+                    for(let c=0; c<3;c++){
+                        result.pop();
+                    }
+                    result.push('B');
+                    result.push(0);
+                    result.push(0);
+                    result.push('V');
+                }
+                zeroCount = 0;
+            }else{
+                result.push(0);
+            }
+        }
+    }
+    return result.join("");
+}
 // Función para codificar en Hamming
 function hammingEncode(input) {
 
@@ -73,7 +110,7 @@ function hammingEncode(input) {
 }
 
 function detectError(binarySequence) {
-    const regex = /0000/;  // Expresión regular para encontrar 4 o más ceros consecutivos
+    const regex = /0000/;
     if (regex.test(binarySequence)) {
         return "Posible error de sincronizacion por 4 o mas '0's consecutivos.";
     } else {
@@ -81,15 +118,13 @@ function detectError(binarySequence) {
     }
 }
 
-//Inicializa la variable de la Grafica de NRZ
 let nrzChart;
 
-//Genera el Grafico de la Señal en NRZ
+// Generar gráfico NRZ-L con etiquetas dinámicas
 function generateNRZL(bits) {
     const nrzSignal = bits.split('').map(bit => (bit === '1' ? 1 : 0));
 
-    const labels = Array.from({ length: nrzSignal.length }, (_, i) => i + 1);
-
+    // Gráfico de la señal
     const ctx = document.getElementById('nrzSecuence').getContext('2d');
 
     if (nrzChart) {
@@ -99,11 +134,11 @@ function generateNRZL(bits) {
     nrzChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: labels,
+            labels: Array.from({ length: nrzSignal.length }, (_, i) => i + 1), // Índices
             datasets: [{
                 label: 'Señal NRZ',
                 data: nrzSignal,
-                borderColor: '#e6ccff', 
+                borderColor: '#e6ccff',
                 borderWidth: 3,
                 fill: false,
                 tension: 0,
@@ -112,40 +147,21 @@ function generateNRZL(bits) {
         },
         options: {
             plugins: {
-                legend: {
-                    display: false 
-                }
+                legend: { display: false }
             },
             scales: {
                 x: {
-                    grid: {
-                        display: true,
-                        drawOnChartArea: true,  
-                        color: 'gray',
-                        lineWidth: 1,
-                    },
+                    grid: { display: true, color: 'gray', lineWidth: 1 },
                     beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'T', 
-                    },
-                    ticks: {
-                        display: false,
-                    }
+                    title: { display: false},
+                    ticks: { display: false },
                 },
                 y: {
                     min: -0.2,
                     max: 1.2,
-                    grid: {
-                        drawOnChartArea: true,
-                        color: 'gray',
-                        lineWidth: (context) => context.tick.value === 0 ? 2 : 0,
-                    },
+                    grid: { drawOnChartArea: true, color: 'gray', lineWidth: (context) => context.tick.value === 0 ? 2 : 0, },
                     beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'V',
-                    },
+                    title: { display: false},
                     ticks: {
                         callback: function(value) {
                             return value === 0 || value === 1 ? value : '';
@@ -156,6 +172,7 @@ function generateNRZL(bits) {
         }
     });
 }
+
 
 //Inicializa la variable de la Grafica de AMI
 let amiChart;
@@ -209,24 +226,19 @@ function generateAMI(bits) {
                         lineWidth: 1,
                     },
                     beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'T', 
-                    },
+                    title: {display:false},
                 },
                 y: {
                     min: -1.2,
                     max: 1.2,
                     grid: {
-                        drawOnChartArea: true, // Evita líneas horizontales adicionales
-                        color: 'gray',  // Eje Y continuo
+                        drawOnChartArea: true, 
+                        color: 'gray', 
                         lineWidth: (context) => context.tick.value === 0 ? 2 : 0,
                     },
                     beginAtZero: true,
                     title: {
-                        display: true,
-                        text: 'V',
-                    },
+                        display: false},
                     ticks: {
                         callback: function(value) {
                             return value === 0 || value === 1 || value=== -1 ? value : '';
@@ -255,7 +267,7 @@ function hdb3Encode(bits) {
             zeroCount++;
             if (zeroCount == 4) {
                 if (oneCount%2 === 1) {
-                    result.push(lastLevel); // El "V" representa el cambio de nivel
+                    result.push(lastLevel); 
                     oneCount++;
                 } else {
                     for(let c=0; c<3;c++){
@@ -320,13 +332,8 @@ function generateHDB3(bits) {
                         lineWidth: 1,
                     },
                     beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'T',
-                    },
-                    ticks: {
-                        display: false,
-                    }
+                    title: {display: true},
+                    ticks: { display: false}
                 },
                 y: {
                     min: -1.2,
@@ -337,10 +344,7 @@ function generateHDB3(bits) {
                         lineWidth: (context) => context.tick.value === 0 ? 2 : 0,
                     },
                     beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'V',
-                    },
+                    title: {display: false},
                     ticks: {
                         callback: function(value) {
                             return value === 0 || value === 1 || value === -1 ? value : '';

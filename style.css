@@ -21,6 +21,7 @@ body {
 }
 
 .sidebar {
+    position: fixed;
     width: 200px;
     height: 100%;
     background-color: #2d2d2d;
@@ -61,9 +62,21 @@ nav a.active{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     max-width: 900px;
     padding: 30px;
+    margin: auto;
+    background-color: #2d2d2d;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    color: #00e5ff;
+    margin-top: 4%;
+}
+.container-view {
+    display: flex;
+    flex-direction: column;
+    width: 950px;
+    padding-left: 75px;
+    padding-top: 35px;
     margin: auto;
     background-color: #2d2d2d;
     border-radius: 15px;
@@ -108,5 +121,38 @@ h2{
 
 .card a:hover {
     color: #00e5ff;
+}
+
+.footer-fixed {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 25px;
+}
+
+.footer-fixed a {
+    color: #62c3ff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 25px;
+}
+
+.footer-fixed a:hover {
+    text-decoration: underline;
+}
+
+.footer-fixed .info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
