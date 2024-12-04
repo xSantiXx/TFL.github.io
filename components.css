@@ -33,13 +33,13 @@ label {
 }
 
 .input-box {
-    width: 100%;
-    padding: 12px;
+    width: 800px;
+    padding: 8px;
     border: 2px solid #00e5ff;
     border-radius: 8px;
     background-color: #424242;
     color: #ffffff;
-    font-size: 16px;
+    font-size: 22px;
 }
 
 .output-box {
@@ -49,8 +49,9 @@ label {
     border: 2px solid #00e5ff;
     border-radius: 8px;
     padding: 12px;
-    font-size: 16px;
+    font-size: 22px;
     background-color: #424242;
+    width: 800px;
 }
 
 .outbox{
@@ -60,7 +61,7 @@ label {
     padding: 12px;
     font-size: 20px;
     background-color: #2d2d2d;
-    color:white;
+    color:rgb(69, 209, 167);
 }
 
 .hamming-code {
@@ -70,7 +71,7 @@ label {
 .ascii-code {
     color: #686868;
     font-style: oblique;
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .buttons {
@@ -161,3 +162,14 @@ label {
     width: 100%;
 }
 
+.labels-contain {
+    font-size: 20px;
+    color: #b1b1b1;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly; 
+    margin-left: 25px;
+    margin-top: 8px;
+    width: 100%;
+}
