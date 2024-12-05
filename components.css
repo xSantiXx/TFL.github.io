@@ -33,23 +33,24 @@ label {
 }
 
 .input-box {
-    width: 100%;
-    padding: 12px;
+    width: 800px;
+    padding: 8px;
     border: 2px solid #00e5ff;
     border-radius: 8px;
     background-color: #424242;
     color: #ffffff;
-    font-size: 16px;
+    font-size: 22px;
 }
 
 .output-box {
+    width: 800px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border: 2px solid #00e5ff;
     border-radius: 8px;
-    padding: 12px;
-    font-size: 16px;
+    padding: 8px;
+    font-size: 22px;
     background-color: #424242;
 }
 
@@ -70,7 +71,7 @@ label {
 .ascii-code {
     color: #686868;
     font-style: oblique;
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .buttons {

@@ -202,6 +202,7 @@ function generateAMI(bits) {
         type: 'line',
         data: {
             labels: labels,
+            display: false,
             datasets: [{
                 data: amiSignal,
                 borderColor: '#ccffe6', 
@@ -226,7 +227,8 @@ function generateAMI(bits) {
                         lineWidth: 1,
                     },
                     beginAtZero: true,
-                    title: {display:false},
+                    title: {display:false}, 
+                    ticks: {display:false}, 
                 },
                 y: {
                     min: -1.2,
