@@ -9,31 +9,17 @@ const readSecuence = (event) => {
 
     const secuenceWhit0 = secuence + "0";
 
-    const space = setLetterSpacing(secuence.length);
-
-    document.getElementById("nrzLabelsContainer").textContent= secuence;
-    document.getElementById("nrzLabelsContainer").style.letterSpacing = `${space}px`;
     generateNRZL(secuenceWhit0);
-    document.getElementById("amiLabelsContainer").textContent= secuence;
-    document.getElementById("amiLabelsContainer").style.letterSpacing = `${space}px`;
     generateAMI(secuenceWhit0);
 
     const showHDB3 = document.getElementById("showHDB3");
     if (syncError.includes("Posible error")) {
         showHDB3.style.display="block";
-        const hdb3Secuence = hdb3Code(secuence);
-        document.getElementById("hdb3LabelsContainer").textContent = hdb3Secuence;
         generateHDB3(secuenceWhit0);
     }else{
         showHDB3.style.display="none";
     }
 }
-
-const setLetterSpacing  = (length) => {
-    const a = 800; 
-    return a/(length);
-};
-  
 
 const readCharacters = (event) => {
     event.preventDefault();
@@ -369,3 +355,26 @@ function generateHDB3(bits) {
         }
     });
 }
+
+document.getElementById("downloadImage").addEventListener("click", (event) => {
+    event.preventDefault();
+
+    // Seleccionar el contenedor que quieres capturar
+    const graficsContainer = document.querySelector(".section");
+
+    // Usar html2canvas para capturar el contenedor
+    html2canvas(graficsContainer).then(canvas => {
+        // Convertir el canvas en una URL de imagen en formato JPG
+        const imgData = canvas.toDataURL("image/jpeg", 1.0);
+
+        // Crear un enlace de descarga
+        const a = document.createElement("a");
+        a.href = imgData;
+        a.download = "grafics.jpg"; // Nombre del archivo descargado
+        document.body.appendChild(a);
+        a.click();
+
+        // Limpiar el enlace temporal
+        document.body.removeChild(a);
+    });
+});

@@ -33,13 +33,13 @@ label {
 }
 
 .input-box {
-    width: 800px;
-    padding: 8px;
+    width: 100%;
+    padding: 12px;
     border: 2px solid #00e5ff;
     border-radius: 8px;
     background-color: #424242;
     color: #ffffff;
-    font-size: 22px;
+    font-size: 16px;
 }
 
 .output-box {
@@ -49,9 +49,8 @@ label {
     border: 2px solid #00e5ff;
     border-radius: 8px;
     padding: 12px;
-    font-size: 22px;
+    font-size: 16px;
     background-color: #424242;
-    width: 800px;
 }
 
 .outbox{
@@ -61,7 +60,7 @@ label {
     padding: 12px;
     font-size: 20px;
     background-color: #2d2d2d;
-    color:rgb(69, 209, 167);
+    color:white;
 }
 
 .hamming-code {
@@ -71,7 +70,7 @@ label {
 .ascii-code {
     color: #686868;
     font-style: oblique;
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .buttons {
@@ -110,8 +109,8 @@ label {
     background-color: #424242;
     color: #e0e0e0;
     margin-bottom: 10px;
+    position: relative;
 }
-
 
 .info-icon {
     display: inline-block;
@@ -162,14 +161,25 @@ label {
     width: 100%;
 }
 
-.labels-contain {
-    font-size: 20px;
-    color: #b1b1b1;
-    font-weight: bold;
-    text-align: center;
-    display: flex;
-    justify-content: space-evenly; 
-    margin-left: 25px;
-    margin-top: 8px;
-    width: 100%;
+.icon-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px; 
+    height: 25px;
+    background-color: #ffffff00; 
+    border-radius: 50%; 
+    text-decoration: none;
+    color: rgb(175, 168, 168); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.075);
+    z-index: 10;
 }
+
+.icon-button:hover {
+    background-color: #ffffff00;
+    transform: scale(1.1); 
+}
+
