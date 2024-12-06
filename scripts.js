@@ -9,8 +9,12 @@ const readSecuence = (event) => {
 
     const secuenceWhit0 = secuence + "0";
 
+    document.getElementById("nrzLabelsContainer").textContent=secuence; 
     generateNRZL(secuenceWhit0);
+    document.getElementById("dNRZ").style.display = "inline-flex";
+    document.getElementById("amiLabelsContainer").textContent=secuence;
     generateAMI(secuenceWhit0);
+    document.getElementById("dAMI").style.display = "inline-flex";
 
     const showHDB3 = document.getElementById("showHDB3");
     if (syncError.includes("Posible error")) {
@@ -19,6 +23,7 @@ const readSecuence = (event) => {
     }else{
         showHDB3.style.display="none";
     }
+    updateTextStyle();
 }
 
 const readCharacters = (event) => {
@@ -33,13 +38,14 @@ const readCharacters = (event) => {
 
     const syncError = detectError(hammingCode);
     document.getElementById("syncError").textContent = syncError;
-
     let secuenceWith0 = hammingCode + "0";
 
     document.getElementById("nrzLabelsContainer").textContent=hammingCode;
     generateNRZL(secuenceWith0);
+    document.getElementById("dNRZ").style.display = "inline-flex";
     document.getElementById("amiLabelsContainer").textContent=hammingCode;
     generateAMI(secuenceWith0);
+    document.getElementById("dAMI").style.display = "inline-flex";
 
     const showHDB3 = document.getElementById("showHDB3");
     if (syncError.includes("Posible error")) {
@@ -358,25 +364,118 @@ function generateHDB3(bits) {
     });
 }
 
-document.getElementById("downloadImage").addEventListener("click", (event) => {
-    event.preventDefault();
 
-    // Seleccionar el contenedor que quieres capturar
-    const graficsContainer = document.querySelector(".section");
+function setupDownloadButton(buttonId, containerId,fileName) {
+    const $button = document.querySelector(`#${buttonId}`);
+    const $container = document.querySelector(`#${containerId}`);
 
-    // Usar html2canvas para capturar el contenedor
-    html2canvas(graficsContainer).then(canvas => {
-        // Convertir el canvas en una URL de imagen en formato JPG
-        const imgData = canvas.toDataURL("image/jpeg", 1.0);
+    $button.addEventListener("click", () => {
+        html2canvas($container).then(canvas => {
+            const link = document.createElement("a");
+            link.download = fileName;
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    });
+}
 
-        // Crear un enlace de descarga
-        const a = document.createElement("a");
-        a.href = imgData;
-        a.download = "grafics.jpg"; // Nombre del archivo descargado
-        document.body.appendChild(a);
-        a.click();
 
-        // Limpiar el enlace temporal
-        document.body.removeChild(a);
+setupDownloadButton("dNRZ", "nrz","NRZ_L.png");
+setupDownloadButton("dAMI", "ami","AMI_png");
+setupDownloadButton("dHDB3", "hdb3","HDB3.png");
+
+// Escuchar el evento de hover en los iconos de información
+const infoIcons = document.querySelectorAll('.info-icon');
+const tooltip = document.createElement('div'); 
+tooltip.style.position = 'absolute';
+tooltip.style.backgroundColor = 'gray';
+tooltip.style.borderRadius = '0px';
+tooltip.style.zIndex = '1000';
+document.body.appendChild(tooltip);  
+
+infoIcons.forEach(icon => {
+    icon.addEventListener('mouseover', function(e) {
+        const contentType = e.target.getAttribute('data-content');
+        let content = '';
+
+        // Mostrar diferentes contenidos dependiendo de data-content
+        switch (contentType) {
+            case 'pngAMI':
+                content = '<img src="images/AMI.png">';
+                break;
+            case 'pngHDB3':
+                content = '<img src="images/HDB3.png">'; 
+                break;
+            case 'pngNRZ':
+            content = '<img src="images/NRZ.png">'; 
+            break;
+            case 'gifHamm':
+                content = '<img src="images/HAMM.gif">'; 
+                break;
+        }
+
+        // Mostrar el contenido en el tooltip
+        tooltip.innerHTML = content;
+
+        // Posicionar el tooltip cerca del icono
+        const iconRect = e.target.getBoundingClientRect();
+        tooltip.style.top = `${iconRect.top + window.scrollY + 20}px`;
+        tooltip.style.left = `${iconRect.left + window.scrollX - tooltip.offsetWidth / 2 + 8}px`;
+
+        tooltip.style.display = 'block';
+    });
+
+    icon.addEventListener('mouseout', function() {
+        // Ocultar el tooltip cuando el ratón sale del icono
+        tooltip.style.display = 'none';
     });
 });
+
+
+function updateTextStyle() {
+    
+    const spacingValues = {
+        0:{marginLeft:"null",letterSpacing:"null"},
+        1:{marginLeft:"null",letterSpacing:"null"},
+        2:{marginLeft:"null",letterSpacing:"null"},
+        3:{marginLeft:"null",letterSpacing:"null"},
+        4: { marginLeft: "100px", letterSpacing: "190px" },
+        5: { marginLeft: "80px", letterSpacing: "145px" },
+        6: { marginLeft: "70px", letterSpacing: "120px" },
+        7: { marginLeft: "60px", letterSpacing: "100px" },
+        8: { marginLeft: "50px", letterSpacing: "85px" },
+        9: { marginLeft: "42px", letterSpacing: "77px" },
+        10: { marginLeft: "40px", letterSpacing: "68px" },
+        11: { marginLeft: "40px", letterSpacing: "60px" },
+        12: { marginLeft: "35px", letterSpacing: "54px" },
+        13: { marginLeft: "30px", letterSpacing: "49px" },
+        14: { marginLeft: "25px", letterSpacing: "45px" },
+        15: { marginLeft: "25px", letterSpacing: "41px" },
+        16: { marginLeft: "25px", letterSpacing: "38px" },
+        17: { marginLeft: "20px", letterSpacing: "35.5px" },
+        18: { marginLeft: "25px", letterSpacing: "34px" },
+        19: { marginLeft: "25px", letterSpacing: "32px" },
+        20: { marginLeft: "25px", letterSpacing: "29.7px" },
+        21: { marginLeft: "25px", letterSpacing: "27.7px" },
+        22: { marginLeft: "20px", letterSpacing: "26px" },
+        23: { marginLeft: "20px", letterSpacing: "24px" },
+        24: { marginLeft: "20px", letterSpacing: "23px" },
+        25: { marginLeft: "20px", letterSpacing: "21.5px" },
+        26: { marginLeft: "20px", letterSpacing: "20.5px" },
+        27: { marginLeft: "20px", letterSpacing: "19.6px" },
+        28: { marginLeft: "20px", letterSpacing: "18.7px" },
+        29: { marginLeft: "20px", letterSpacing: "17.5px" },
+        30: { marginLeft: "19px", letterSpacing: "16.6px" },
+    };
+
+    const elements = document.querySelectorAll('.labels-contain');
+
+    elements.forEach(element => {
+        const textLength = element.textContent.length;
+        if (spacingValues[textLength]) {
+            const { marginLeft, letterSpacing } = spacingValues[textLength]; 
+            element.style.marginLeft = marginLeft;
+            element.style.letterSpacing = letterSpacing;
+        }
+    });
+}

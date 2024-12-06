@@ -6,6 +6,9 @@
     <title>Trabajo Final de Laboratorio // Romano Santiago</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="components.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1/dist/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <div class="sidebar-layout">
@@ -23,34 +26,51 @@
 
             <form onsubmit="readSecuence(event)" class="section">
                 <label for="secuenciabinaria">Secuencia binaria de bits</label>
-                <input type="text" id="secuenciabinaria" class="input-box" required placeholder="Secuencia de 0s y 1s" pattern="^[0-1]+">
+                <input type="text" id="secuenciabinaria" class="input-box" required placeholder="Secuencia de 0s y 1s" pattern="^[0-1]+" minlength="4" maxlength="30">
                 <button type="submit" id="submitButton" class="button">Codificar</button>
             </form>
 
             <div class="section">
                 <label for="secuencia-codificada">
-                    Secuencia codificada en NRZ-L
-                    <div class="info-icon">i</div>
+                    Secuencia codificada en NRZ
+                    <div class="info-icon" data-content="pngNRZ">i</div>
                 </label>
                 <div class="grafics">
-                    <canvas id="nrzSecuence" width="700" height="220"></canvas> 
+                    <div class= "image" id="nrz">
+                        <span id="nrzLabelsContainer" class="labels-contain"></span>
+                        <canvas id="nrzSecuence" width="700" height="220"></canvas>
+                    </div>
+                    <button id="dNRZ" class="icon-button" style="display: none;">
+                        <i class="fas fa-download"></i> 
+                    </button>
                 </div>
                 <label for="secuencia-codificada">
                     Secuencia codificada en AMI
-                    <div class="info-icon">i</div>
+                    <div class="info-icon" data-content="pngAMI">i</div>
                 </label>
                 <div class="grafics">
-                    <span id="nrzLabelsContainer" class="labels-container"></span>
-                    <canvas id="amiSecuence" width="700" height="220"></canvas>
+                    <div class= "image" id="ami">
+                        <span id="amiLabelsContainer" class="labels-contain"></span>
+                        <canvas id="amiSecuence" width="700" height="220"></canvas>
+                    </div>
+                    <button id="dAMI" class="icon-button" style="display: none;">
+                        <i class="fas fa-download"></i> 
+                    </button>
                 </div> 
                 <div class="outbox" id="syncError"></div>
                 <div class="option"style="display: none;" id="showHDB3">
                     <label for="secuencia-codificada">
                         Secuencia codificada en HDB3
-                        <div class="info-icon">i</div>
+                        <div class="info-icon" data-content="pngHDB3">i</div>
                     </label>
                     <div class="grafics">
-                        <canvas id="hdb3Secuence" width="700" height="220"></canvas>
+                        <div class= "image" id="hdb3">
+                            <span id="hdb3LabelsContainer" class="labels-contain"></span>
+                            <canvas id="hdb3Secuence" width="700" height="220"></canvas>
+                        </div>
+                        <button id="dHDB3" class="icon-button">
+                            <i class="fas fa-download"></i> 
+                        </button>
                     </div>
                 </div>
             </div>
@@ -61,11 +81,9 @@
             <p><strong>Autor:</strong> Santiago Romano</p>
             <p><strong>Legajo:</strong> 53602</p>
         </div>
-        <a href="archivo_de_descarga.txt" download>Descargar Manual de Usuario</a>
+        <a href="https://drive.google.com/uc?export=download&id=1VsXW3t7K-yoeLMwxcbK_b06VMHxMDQ4E">Descargar Manual de Usuario</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="scripts.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </body>
 </html>
